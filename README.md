@@ -364,4 +364,5 @@ This software is proprietary and confidential. Unauthorized copying, distributio
 ---
 
 **Built with ❤️ by Shreyas**
-*Transforming recruitment through AI-powered intelligence*
+*Transforming recruitment through AI-powered intelligence*" #   R e s u m e - E v a l u a t o r "    
+ 
