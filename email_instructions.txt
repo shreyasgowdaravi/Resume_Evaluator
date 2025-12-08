@@ -1,0 +1,30 @@
+EMAIL CONFIGURATION ISSUE RESOLVED:
+
+The error shows: "SmtpClientAuthentication is disabled for the Tenant"
+
+SOLUTIONS:
+
+1. ENABLE SMTP AUTH (Recommended):
+   - Go to Microsoft 365 Admin Center (admin.microsoft.com)
+   - Navigate to Users > Active users
+   - Select resumeevaluator@company.com
+   - Click on Mail tab
+   - Click "Manage email apps"
+   - Enable "Authenticated SMTP"
+   - Save changes
+
+2. ALTERNATIVE - Use App Password:
+   - If MFA is enabled, generate an App Password
+   - Replace the regular password with the App Password
+
+3. ALTERNATIVE - Use Different Email Service:
+   - Use Gmail with App Password
+   - Use SendGrid, Mailgun, or AWS SES
+
+Current Configuration:
+- Host: smtp.office365.com
+- Port: 587
+- User: resumeevaluator@company.com
+- Password: Ceo@ravi
+
+After enabling SMTP AUTH, the email should work correctly.

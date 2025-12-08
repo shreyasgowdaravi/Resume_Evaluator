@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - TalentWize Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: var(--bg-primary);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+    
+    .navbar {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 0;
+    }
+    
+    .navbar-brand {
+      color: var(--text-primary) !important;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    
+    .nav-link {
+      color: var(--text-secondary) !important;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      color: var(--text-primary) !important;
+    }
+    
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .header-section {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .header-title {
+      font-size: 3rem;
+      font-weight: 800;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+    
+    .header-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    
+    .create-project-btn {
+      background: var(--primary-gradient);
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 2rem;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(99, 102, 241, 0.3);
+    }
+    
+    .create-project-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(99, 102, 241, 0.4);
+    }
+    
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .project-card {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary-gradient);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+    
+    .project-header {
+      display: flex;
+      justify-content: between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    
+    .project-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .project-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    
+    .project-stats {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+    
+    .project-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .btn-action {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary-action {
+      background: var(--primary-gradient);
+      color: white;
+    }
+    
+    .btn-secondary-action {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+    }
+    
+    .btn-action:hover {
+      transform: translateY(-1px);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-secondary);
+    }
+    
+    .empty-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+    
+    .modal-content {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+    }
+    
+    .modal-header {
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .modal-title {
+      color: var(--text-primary);
+    }
+    
+    .form-label {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .form-control {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      border-radius: 8px;
+    }
+    
+    .form-control:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #6366f1;
+      box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
+      color: var(--text-primary);
+    }
+    
+    .form-control::placeholder {
+      color: var(--text-secondary);
+    }
+    
+    .btn-close {
+      filter: invert(1);
+    }
+    
+    @media (max-width: 768px) {
+      .header-title {
+        font-size: 2rem;
+      }
+      
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .main-container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('dashboard') }}">
+        <i class="bi bi-stars me-2"></i>TalentWize Pro
+      </a>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="{{ url_for('dashboard') }}">
+          <i class="bi bi-house me-1"></i>Dashboard
+        </a>
+        <a class="nav-link active" href="{{ url_for('projects') }}">
+          <i class="bi bi-folder me-1"></i>Projects
+        </a>
+        <a class="nav-link" href="{{ url_for('logout') }}">
+          <i class="bi bi-box-arrow-right me-1"></i>Logout
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="main-container">
+    <!-- Header Section -->
+    <div class="header-section">
+      <h1 class="header-title">Projects</h1>
+      <p class="header-subtitle">Organize your recruitment campaigns and track progress</p>
+      <button class="btn create-project-btn" data-bs-toggle="modal" data-bs-target="#createProjectModal">
+        <i class="bi bi-plus-circle me-2"></i>Create New Project
+      </button>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid" id="projectsGrid">
+      {% if projects %}
+        {% for project in projects %}
+        <div class="project-card">
+          <div class="project-header">
+            <div>
+              <h3 class="project-title">{{ project.name }}</h3>
+              <p class="project-description">{{ project.description }}</p>
+            </div>
+          </div>
+          
+          <div class="project-stats">
+            <div class="stat-item">
+              <i class="bi bi-file-text"></i>
+              <span>{{ project.jd_count }} JDs</span>
+            </div>
+            <div class="stat-item">
+              <i class="bi bi-people"></i>
+              <span>{{ project.resume_count }} Resumes</span>
+            </div>
+            <div class="stat-item">
+              <i class="bi bi-calendar"></i>
+              <span>{{ project.created_date }}</span>
+            </div>
+          </div>
+          
+          <div class="project-actions">
+            <button class="btn btn-action btn-primary-action" onclick="openProject('{{ project.id }}')">
+              <i class="bi bi-folder-open me-1"></i>Open
+            </button>
+            <button class="btn btn-action btn-secondary-action" onclick="editProject('{{ project.id }}')">
+              <i class="bi bi-pencil me-1"></i>Edit
+            </button>
+            <button class="btn btn-action btn-secondary-action" onclick="deleteProject('{{ project.id }}')">
+              <i class="bi bi-trash me-1"></i>Delete
+            </button>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state">
+          <div class="empty-icon">
+            <i class="bi bi-folder-plus"></i>
+          </div>
+          <h3>No Projects Yet</h3>
+          <p>Create your first project to start organizing your recruitment campaigns</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Create Project Modal -->
+  <div class="modal fade" id="createProjectModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="bi bi-plus-circle me-2"></i>Create New Project
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="createProjectForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="projectName" class="form-label">Project Name</label>
+                <input type="text" class="form-control" id="projectName" placeholder="e.g., Software Engineer Hiring Q1 2025" required>
+              </div>
+              <div class="col-md-6">
+                <label for="projectType" class="form-label">Project Type</label>
+                <select class="form-control" id="projectType" required>
+                  <option value="">Select Type</option>
+                  <option value="bulk_hiring">Bulk Hiring</option>
+                  <option value="specific_role">Specific Role</option>
+                  <option value="internship">Internship Program</option>
+                  <option value="contract">Contract Positions</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="projectDescription" class="form-label">Description</label>
+                <textarea class="form-control" id="projectDescription" rows="3" placeholder="Brief description of the project goals and requirements"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label for="expectedCandidates" class="form-label">Expected Candidates</label>
+                <input type="number" class="form-control" id="expectedCandidates" placeholder="50" min="1">
+              </div>
+              <div class="col-md-6">
+                <label for="deadline" class="form-label">Target Deadline</label>
+                <input type="date" class="form-control" id="deadline">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn create-project-btn" onclick="createProject()">
+            <i class="bi bi-plus-circle me-2"></i>Create Project
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function createProject() {
+      const form = document.getElementById('createProjectForm');
+      const formData = new FormData(form);
+      
+      const projectData = {
+        name: document.getElementById('projectName').value,
+        type: document.getElementById('projectType').value,
+        description: document.getElementById('projectDescription').value,
+        expected_candidates: document.getElementById('expectedCandidates').value,
+        deadline: document.getElementById('deadline').value
+      };
+      
+      if (!projectData.name || !projectData.type) {
+        alert('Please fill in required fields');
+        return;
+      }
+      
+      fetch('/create_project', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(projectData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          location.reload();
+        } else {
+          alert('Error creating project: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error creating project');
+      });
+    }
+    
+    function openProject(projectId) {
+      window.location.href = `/project/${projectId}`;
+    }
+    
+    function editProject(projectId) {
+      // Implementation for edit project
+      console.log('Edit project:', projectId);
+    }
+    
+    function deleteProject(projectId) {
+      if (confirm('Are you sure you want to delete this project?')) {
+        fetch(`/delete_project/${projectId}`, {
+          method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            location.reload();
+          } else {
+            alert('Error deleting project: ' + data.message);
+          }
+        });
+      }
+    }
+  </script>
+</body>
+</html>

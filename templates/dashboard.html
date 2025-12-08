@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - TalentWiz Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      --secondary-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      --success-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      --warning-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      --danger-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      --dark-gradient: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body { 
+      background: var(--bg-primary);
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      position: relative;
+      overflow-x: hidden;
+      color: var(--text-primary);
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+      z-index: -1;
+    }
+    
+    .floating-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .shape {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .shape:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    
+    .shape:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      top: 70%;
+      right: 10%;
+      animation-delay: 2s;
+    }
+    
+    .shape:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      top: 40%;
+      left: 70%;
+      animation-delay: 4s;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-20px) rotate(120deg); }
+      66% { transform: translateY(20px) rotate(240deg); }
+    }
+    
+    .main-card {
+      background: var(--bg-secondary);
+      border-radius: 24px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .main-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      pointer-events: none;
+    }
+    
+    .header-gradient {
+      background: var(--primary-gradient);
+      padding: 3rem;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .header-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    }
+    
+    .header-gradient > * {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .welcome-text {
+      background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .upload-area {
+      border: 2px dashed rgba(148, 163, 184, 0.5);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      background: var(--bg-secondary);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .upload-area::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s;
+    }
+    
+    .upload-area:hover::before {
+      left: 100%;
+    }
+    
+    .upload-area:hover {
+      border-color: #667eea;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 20px 25px -5px rgba(102, 126, 234, 0.15);
+    }
+    
+    .upload-area.dragover {
+      border-color: var(--success-color);
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 25px 50px -12px rgba(16, 185, 129, 0.25);
+      border-style: solid;
+    }
+    
+    .upload-icon {
+      font-size: 2.5rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 0.75rem;
+      transition: all 0.3s ease;
+    }
+    
+    .upload-area:hover .upload-icon { color: #667eea; transform: scale(1.1); }
+    
+    .file-info {
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-top: 0.75rem;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--text-primary);
+      font-size: 0.85rem;
+    }
+    
+    .progress-container {
+      display: none;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .progress {
+      height: 12px;
+      border-radius: 6px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      background: var(--primary-gradient);
+      transition: width 0.3s ease;
+    }
+    
+    .btn-primary {
+      background: var(--primary-gradient);
+      border: none;
+      border-radius: 20px;
+      padding: 1.5rem 3rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 8px 32px 0 rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 20px 40px 0 rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:active {
+      transform: translateY(-2px) scale(0.98);
+    }
+    
+    .btn-primary:disabled {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .process-flow {
+      padding: 2rem 0;
+    }
+    
+    .process-line {
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: rgba(255,255,255,0.2);
+      z-index: 1;
+    }
+    
+    .process-step {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .step-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.5rem;
+      font-size: 1.5rem;
+      color: rgba(255,255,255,0.6);
+      transition: all 0.3s ease;
+    }
+    
+    .process-step.active .step-icon {
+      background: var(--primary-gradient);
+      border-color: white;
+      color: white;
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    
+    .step-label {
+      color: rgba(255,255,255,0.8);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+      }
+      50% {
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.5);
+      }
+    }
+    
+    .alert {
+      border-radius: 12px;
+      border: none;
+      padding: 1rem 1.5rem;
+    }
+    
+    .form-label {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.75rem;
+    }
+    
+    .stats-mini {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stats-mini::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary-gradient);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .stats-mini:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border-color: rgba(99, 102, 241, 0.5);
+    }
+    
+    .stats-mini:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .stats-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      background: var(--primary-gradient);
+      color: white;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .stats-mini:hover .stats-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
+    }
+    
+    .tooltip-custom {
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+    }
+    
+    @media (max-width: 768px) {
+      .header-gradient { 
+        padding: 2rem 1.5rem; 
+        text-align: center;
+      }
+      .upload-area { 
+        padding: 1.5rem 1rem; 
+        margin: 1rem 0;
+        min-height: 100px;
+      }
+      .main-card { 
+        margin: 0.5rem; 
+        border-radius: 16px;
+      }
+      .stats-mini {
+        margin-bottom: 1rem;
+      }
+      .btn-primary {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+      }
+      .upload-icon {
+        font-size: 2rem;
+      }
+      .feature-card {
+        padding: 0.75rem;
+        min-height: 60px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .container-fluid {
+        padding: 0.5rem;
+      }
+      .header-gradient {
+        padding: 1.5rem 1rem;
+      }
+      .upload-area {
+        padding: 2rem 1rem;
+      }
+      .stats-mini {
+        padding: 1rem;
+      }
+      h3 {
+        font-size: 1.5rem;
+      }
+      h5 {
+        font-size: 1.1rem;
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+      }
+    }
+    
+    .feature-card {
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-height: 70px;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(99, 102, 241, 0.3);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: var(--primary-gradient);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    
+    .feature-title {
+      color: var(--text-primary);
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+      font-size: 0.9rem;
+    }
+    
+    .feature-desc {
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      margin: 0;
+    }
+    
+    .btn-loader {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .upload-area {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 2px dashed rgba(255,255,255,0.3);
+      color: white;
+    }
+    
+    .upload-area:hover {
+      border-color: rgba(99, 102, 241, 0.8);
+      background: rgba(99, 102, 241, 0.05);
+      transform: translateY(-2px);
+    }
+    
+    .upload-area.dragover {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.1);
+      border-style: solid;
+      transform: scale(1.02);
+    }
+    
+    .upload-icon {
+      color: var(--text-secondary);
+    }
+    
+    .upload-area h6 {
+      color: var(--text-primary);
+    }
+    
+    .upload-area p {
+      color: var(--text-secondary);
+    }
+    
+    .badge {
+      background: rgba(99, 102, 241, 0.2) !important;
+      color: var(--text-primary) !important;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+    
+    .file-info {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+    }
+    
+    .form-label {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .alert {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+<div class="container-fluid py-4">
+  <div class="row justify-content-center">
+    <div class="col-xl-8 col-lg-10">
+      <div class="main-card">
+        <div class="header-gradient">
+          <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+          </div>
+          <div class="position-relative">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" style="position: absolute; top: 0; right: 0; height: 50px; width: auto; z-index: 10;">
+            <div class="pe-5">
+              <div class="animate__animated animate__fadeInLeft">
+                <h2 class="mb-3 welcome-text">
+                  <i class="bi bi-stars me-3"></i>Welcome back, {{ username.split('@')[0].title() }}
+                </h2>
+                <p class="mb-0 fs-5" style="color: rgba(255,255,255,0.9);">
+                  <i class="bi bi-cpu me-2"></i>
+                  Advanced AI-powered Resume Evaluation platform
+                </p>
+                <div class="mt-3">
+                  <span class="badge rounded-pill px-3 py-2 me-2" style="background: rgba(255,255,255,0.2);">
+                    <i class="bi bi-shield-check me-1"></i>Secure
+                  </span>
+                  <span class="badge rounded-pill px-3 py-2 me-2" style="background: rgba(255,255,255,0.2);">
+                    <i class="bi bi-lightning me-1"></i>Fast
+                  </span>
+                  <span class="badge rounded-pill px-3 py-2" style="background: rgba(255,255,255,0.2);">
+                    <i class="bi bi-brain me-1"></i>Smart
+                  </span>
+                </div>
+                <div class="mt-3 d-flex gap-2">
+                  <button class="btn btn-outline-light btn-sm rounded-pill px-4" onclick="showHelp()">
+                    <i class="bi bi-question-circle me-1"></i> Help
+                  </button>
+                  <a href="{{ url_for('logout') }}" class="btn btn-light btn-sm rounded-pill px-4">
+                    <i class="bi bi-box-arrow-right me-1"></i> Logout
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Advanced Stats Dashboard -->
+        <div class="p-4 pb-0">
+          <div class="row g-4 mb-5">
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-mini animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                <div class="stats-icon">
+                  <i class="bi bi-file-text"></i>
+                </div>
+                <div class="fw-bold fs-5 text-white mb-1">Job Description</div>
+                <small class="text-white-50">Upload JD first</small>
+                <div class="progress mt-2" style="height: 4px;">
+                  <div class="progress-bar bg-light" role="progressbar" style="width: 0%" id="jdProgress"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-mini animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <div class="stats-icon">
+                  <i class="bi bi-files"></i>
+                </div>
+                <div class="fw-bold fs-5 text-white mb-1">Resumes</div>
+                <small class="text-white-50">Up to 10 files</small>
+                <div class="progress mt-2" style="height: 4px;">
+                  <div class="progress-bar bg-light" role="progressbar" style="width: 0%" id="resumeProgress"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-mini animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                <div class="stats-icon">
+                  <i class="bi bi-cpu"></i>
+                </div>
+                <div class="fw-bold fs-5 text-white mb-1">AI Processing</div>
+                <small class="text-white-50">Advanced algorithms</small>
+                <div class="progress mt-2" style="height: 4px;">
+                  <div class="progress-bar bg-light" role="progressbar" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="stats-mini animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                <div class="stats-icon">
+                  <i class="bi bi-lightning-charge"></i>
+                </div>
+                <div class="fw-bold fs-5 text-white mb-1">Results</div>
+                <small class="text-white-50">Instant insights</small>
+                <div class="progress mt-2" style="height: 4px;">
+                  <div class="progress-bar bg-light" role="progressbar" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Process Flow Visualization -->
+          <div class="process-flow mb-5">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center position-relative">
+                  <div class="process-line"></div>
+                  <div class="process-step active" data-step="1">
+                    <div class="step-icon"><i class="bi bi-upload"></i></div>
+                    <div class="step-label">Upload</div>
+                  </div>
+                  <div class="process-step" data-step="2">
+                    <div class="step-icon"><i class="bi bi-gear"></i></div>
+                    <div class="step-label">Process</div>
+                  </div>
+                  <div class="process-step" data-step="3">
+                    <div class="step-icon"><i class="bi bi-brain"></i></div>
+                    <div class="step-label">Analyze</div>
+                  </div>
+                  <div class="process-step" data-step="4">
+                    <div class="step-icon"><i class="bi bi-check-circle"></i></div>
+                    <div class="step-label">Results</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="p-4">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ 'danger' if category == 'danger' else 'success' if category == 'success' else 'warning' }} alert-dismissible fade show" role="alert">
+                  <i class="bi bi-{{ 'exclamation-triangle' if category == 'danger' else 'check-circle' if category == 'success' else 'info-circle' }}"></i> {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <form method="POST" enctype="multipart/form-data" id="evaluationForm">
+            <div class="row g-4 mb-4">
+              <div class="col-md-6">
+                <label class="form-label"><i class="bi bi-file-text me-2"></i>Job Description</label>
+                <div class="upload-area" id="jdUploadArea" data-bs-toggle="tooltip" title="Drag and drop your job description file here">
+                  <input type="file" name="jd_file" id="jdFile" class="form-control" accept=".txt,.docx,.pdf" required style="display: none;">
+                  <div class="upload-content" onclick="document.getElementById('jdFile').click()">
+                    <i class="bi bi-file-text upload-icon"></i>
+                    <h6 class="mb-1 fw-bold text-white">Job Description</h6>
+                    <p class="mb-2 small text-white-50">Drop file or click to browse</p>
+                    <div class="d-flex justify-content-center gap-2">
+                      <span class="badge rounded-pill px-2 py-1 small">.txt</span>
+                      <span class="badge rounded-pill px-2 py-1 small">.docx</span>
+                      <span class="badge rounded-pill px-2 py-1 small">.pdf</span>
+                    </div>
+                  </div>
+                  <div class="file-info" id="jdFileInfo"></div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <label class="form-label"><i class="bi bi-file-earmark-pdf me-2"></i>Resume Files</label>
+                <div class="upload-area" id="resumeUploadArea" data-bs-toggle="tooltip" title="Drag and drop multiple resume files here">
+                  <input type="file" name="resumes" id="resumeFiles" class="form-control" accept=".pdf,.docx" multiple required style="display: none;">
+                  <div class="upload-content" onclick="document.getElementById('resumeFiles').click()">
+                    <i class="bi bi-files upload-icon"></i>
+                    <h6 class="mb-1 fw-bold text-white">Resume Files</h6>
+                    <p class="mb-2 small text-white-50">Drop files or click to select</p>
+                    <div class="d-flex justify-content-center gap-2">
+                      <span class="badge rounded-pill px-2 py-1 small"><i class="bi bi-file-pdf me-1"></i>PDF</span>
+                      <span class="badge rounded-pill px-2 py-1 small"><i class="bi bi-file-word me-1"></i>DOCX</span>
+                      <span class="badge rounded-pill px-2 py-1 small">Max 10</span>
+                    </div>
+                  </div>
+                  <div class="file-info" id="resumeFileInfo"></div>
+                </div>
+              </div>
+            </div>
+            
+
+            
+            <div class="progress-container" id="progressContainer">
+              <div class="d-flex align-items-center mb-3">
+                <div class="spinner-border spinner-border-sm text-primary me-3" role="status"></div>
+                <div>
+                  <div class="fw-bold mb-1">Processing your files...</div>
+                  <div class="text-muted small" id="progressStatus">Initializing AI analysis</div>
+                </div>
+              </div>
+              <div class="progress mb-2">
+                <div class="progress-bar" role="progressbar" style="width: 0%" id="progressBar"></div>
+              </div>
+              <div class="d-flex justify-content-between small text-muted">
+                <span id="progressText">Starting...</span>
+                <span id="progressPercent">0%</span>
+              </div>
+            </div>
+            
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg" id="submitBtn" disabled>
+                <i class="bi bi-upload me-2"></i>
+                <span class="btn-text">Upload Files First</span>
+                <div class="btn-loader" style="display: none;">
+                  <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                  Processing...
+                </div>
+              </button>
+            </div>
+            
+            <!-- Advanced Features Panel -->
+            <div class="advanced-features mt-4">
+              <div class="row g-3">
+                <div class="col-md-3">
+                  <div class="feature-card">
+                    <i class="bi bi-shield-check feature-icon"></i>
+                    <div class="feature-content">
+                      <h6 class="feature-title">Secure</h6>
+                      <p class="feature-desc">Encrypted</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="feature-card">
+                    <i class="bi bi-lightning-charge feature-icon"></i>
+                    <div class="feature-content">
+                      <h6 class="feature-title">Fast</h6>
+                      <p class="feature-desc">Instant results</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="feature-card">
+                    <i class="bi bi-cpu feature-icon"></i>
+                    <div class="feature-content">
+                      <h6 class="feature-title">AI-Powered</h6>
+                      <p class="feature-desc">Smart analysis</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="feature-card">
+                    <i class="bi bi-graph-up feature-icon"></i>
+                    <div class="feature-content">
+                      <h6 class="feature-title">Accurate</h6>
+                      <p class="feature-desc">Precise scoring</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Initialize tooltips
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+  
+  // Drag and drop functionality
+  function setupDragDrop(uploadArea, fileInput) {
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      uploadArea.addEventListener(eventName, preventDefaults, false);
+    });
+    
+    ['dragenter', 'dragover'].forEach(eventName => {
+      uploadArea.addEventListener(eventName, () => uploadArea.classList.add('dragover'), false);
+    });
+    
+    ['dragleave', 'drop'].forEach(eventName => {
+      uploadArea.addEventListener(eventName, () => uploadArea.classList.remove('dragover'), false);
+    });
+    
+    uploadArea.addEventListener('drop', (e) => {
+      const files = e.dataTransfer.files;
+      fileInput.files = files;
+      fileInput.dispatchEvent(new Event('change'));
+    }, false);
+  }
+  
+  function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
+  // Setup drag and drop for both upload areas
+  setupDragDrop(document.getElementById('jdUploadArea'), document.getElementById('jdFile'));
+  setupDragDrop(document.getElementById('resumeUploadArea'), document.getElementById('resumeFiles'));
+  
+  // File validation and display
+  document.getElementById('jdFile').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    const info = document.getElementById('jdFileInfo');
+    if (file) {
+      // Validate file format
+      const fileName = file.name.toLowerCase();
+      if (!fileName.endsWith('.txt') && !fileName.endsWith('.docx') && !fileName.endsWith('.pdf')) {
+        showAlert('Job description must be in .txt, .docx, or .pdf format', 'danger');
+        e.target.value = '';
+        return;
+      }
+      
+      const size = formatFileSize(file.size);
+      info.innerHTML = `
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-check-circle-fill text-success me-2"></i>
+            <div>
+              <div class="fw-semibold">${file.name}</div>
+              <small class="text-muted">${size} • ${file.type || 'Document'}</small>
+            </div>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-danger rounded-pill" onclick="clearJDFile()">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+      `;
+      info.style.opacity = '0';
+      info.style.transform = 'translateY(10px)';
+      setTimeout(() => {
+        info.style.transition = 'all 0.3s ease';
+        info.style.opacity = '1';
+        info.style.transform = 'translateY(0)';
+      }, 10);
+    }
+    validateForm();
+    addPulseAnimation();
+  });
+  
+  document.getElementById('resumeFiles').addEventListener('change', function(e) {
+    const files = e.target.files;
+    const info = document.getElementById('resumeFileInfo');
+    
+    if (files.length > 0) {
+      if (files.length > 10) {
+        showAlert('Maximum 10 files allowed', 'warning');
+        e.target.value = '';
+        return;
+      }
+      
+      let totalSize = 0;
+      let invalidFiles = [];
+      
+      for (let file of files) {
+        if (file.size > 5*1024*1024) {
+          invalidFiles.push(file.name);
+        }
+        // Check file format
+        const fileName = file.name.toLowerCase();
+        if (!fileName.endsWith('.pdf') && !fileName.endsWith('.docx')) {
+          invalidFiles.push(file.name + ' (unsupported format)');
+        }
+        totalSize += file.size;
+      }
+      
+      if (invalidFiles.length > 0) {
+        showAlert(`Files exceed 5MB limit: ${invalidFiles.join(', ')}`, 'warning');
+        e.target.value = '';
+        return;
+      }
+      
+      const totalSizeMB = (totalSize/1024/1024).toFixed(2);
+      info.innerHTML = `
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-check-circle-fill text-success me-2"></i>
+            <div>
+              <div class="fw-semibold">${files.length} resume${files.length > 1 ? 's' : ''} selected</div>
+              <small class="text-muted">${totalSizeMB} MB total • Ready for processing</small>
+            </div>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-danger" onclick="clearResumeFiles()">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+      `;
+    }
+  });
+  
+  // Clear file functions
+  function clearJDFile() {
+    document.getElementById('jdFile').value = '';
+    document.getElementById('jdFileInfo').innerHTML = '';
+  }
+  
+  function clearResumeFiles() {
+    document.getElementById('resumeFiles').value = '';
+    document.getElementById('resumeFileInfo').innerHTML = '';
+  }
+  
+  // Enhanced progress tracking
+  document.getElementById('evaluationForm').addEventListener('submit', function() {
+    const submitBtn = document.getElementById('submitBtn');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const progressPercent = document.getElementById('progressPercent');
+    const progressStatus = document.getElementById('progressStatus');
+    
+    submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Processing...';
+    submitBtn.disabled = true;
+    progressContainer.style.display = 'block';
+    
+    const stages = [
+      { text: 'Uploading files...', status: 'Preparing documents for analysis' },
+      { text: 'Parsing job description...', status: 'Extracting requirements and criteria' },
+      { text: 'Analyzing resumes...', status: 'AI is reading and understanding resumes' },
+      { text: 'Calculating match scores...', status: 'Comparing candidates against job requirements' },
+      { text: 'Generating reports...', status: 'Creating detailed evaluation reports' },
+      { text: 'Finalizing results...', status: 'Almost done, preparing your dashboard' }
+    ];
+    
+    let currentStage = 0;
+    let progress = 0;
+    
+    const interval = setInterval(() => {
+      progress += Math.random() * 8 + 2;
+      
+      if (progress > 95) progress = 95;
+      
+      // Update stage based on progress
+      const stageIndex = Math.floor((progress / 100) * stages.length);
+      if (stageIndex < stages.length && stageIndex !== currentStage) {
+        currentStage = stageIndex;
+        progressText.textContent = stages[currentStage].text;
+        progressStatus.textContent = stages[currentStage].status;
+      }
+      
+      progressBar.style.width = progress + '%';
+      progressPercent.textContent = Math.round(progress) + '%';
+    }, 800);
+  });
+  
+  // Enhanced alert function with animations
+  function showAlert(message, type = 'info') {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.style.transform = 'translateY(-20px)';
+    alertDiv.style.opacity = '0';
+    alertDiv.innerHTML = `
+      <i class="bi bi-${type === 'danger' ? 'exclamation-triangle' : type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    const form = document.getElementById('evaluationForm');
+    form.insertBefore(alertDiv, form.firstChild);
+    
+    // Animate in
+    setTimeout(() => {
+      alertDiv.style.transform = 'translateY(0)';
+      alertDiv.style.opacity = '1';
+      alertDiv.style.transition = 'all 0.3s ease';
+    }, 10);
+    
+    setTimeout(() => {
+      if (alertDiv.parentNode) {
+        alertDiv.style.transform = 'translateY(-20px)';
+        alertDiv.style.opacity = '0';
+        setTimeout(() => alertDiv.remove(), 300);
+      }
+    }, 5000);
+  }
+  
+  // Add file size formatter
+  function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+  
+  // Add visual feedback for form validation
+  function validateForm() {
+    const jdFile = document.getElementById('jdFile').files[0];
+    const resumeFiles = document.getElementById('resumeFiles').files;
+    const submitBtn = document.getElementById('submitBtn');
+    
+    if (jdFile && resumeFiles.length > 0) {
+      submitBtn.classList.remove('btn-secondary');
+      submitBtn.classList.add('btn-primary');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="bi bi-play-circle me-2"></i>Start AI Evaluation';
+    } else {
+      submitBtn.classList.remove('btn-primary');
+      submitBtn.classList.add('btn-secondary');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="bi bi-upload me-2"></i>Upload Files First';
+    }
+  }
+  
+  // Add pulse animation to upload areas when empty
+  function addPulseAnimation() {
+    const uploadAreas = document.querySelectorAll('.upload-area');
+    uploadAreas.forEach(area => {
+      if (!area.querySelector('.file-info').innerHTML) {
+        area.style.animation = 'pulse 2s ease-in-out infinite';
+      } else {
+        area.style.animation = 'none';
+      }
+    });
+  }
+  
+  // Advanced form validation with visual feedback
+  function validateForm() {
+    const jdFile = document.getElementById('jdFile').files[0];
+    const resumeFiles = document.getElementById('resumeFiles').files;
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const jdProgress = document.getElementById('jdProgress');
+    const resumeProgress = document.getElementById('resumeProgress');
+    
+    // Update progress bars
+    jdProgress.style.width = jdFile ? '100%' : '0%';
+    resumeProgress.style.width = resumeFiles.length > 0 ? `${(resumeFiles.length / 10) * 100}%` : '0%';
+    
+    // Update process steps
+    updateProcessSteps(jdFile, resumeFiles);
+    
+    if (jdFile && resumeFiles.length > 0) {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('btn-secondary');
+      submitBtn.classList.add('btn-primary');
+      btnText.innerHTML = '<i class="bi bi-rocket me-2"></i>Launch AI Analysis';
+    } else {
+      submitBtn.disabled = true;
+      submitBtn.classList.remove('btn-primary');
+      submitBtn.classList.add('btn-secondary');
+      btnText.innerHTML = '<i class="bi bi-upload me-2"></i>Upload Files First';
+    }
+  }
+  
+  function updateProcessSteps(jdFile, resumeFiles) {
+    const steps = document.querySelectorAll('.process-step');
+    
+    // Reset all steps
+    steps.forEach(step => step.classList.remove('active'));
+    
+    // Activate steps based on progress
+    if (jdFile || resumeFiles.length > 0) {
+      steps[0].classList.add('active');
+    }
+    if (jdFile && resumeFiles.length > 0) {
+      steps[1].classList.add('active');
+    }
+  }
+  
+  function showHelp() {
+    const helpModal = `
+      <div class="modal fade" id="helpModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content" style="background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border);">
+            <div class="modal-header border-0">
+              <h5 class="modal-title text-white"><i class="bi bi-info-circle me-2"></i>How to Use TalentWiz Pro</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-white">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <h6><i class="bi bi-1-circle me-2"></i>Upload Job Description</h6>
+                  <p class="small">Upload a .txt, .docx, or .pdf file containing the job requirements</p>
+                </div>
+                <div class="col-md-6">
+                  <h6><i class="bi bi-2-circle me-2"></i>Upload Resumes</h6>
+                  <p class="small">Select up to 10 PDF or DOCX resume files for analysis</p>
+                </div>
+                <div class="col-md-6">
+                  <h6><i class="bi bi-3-circle me-2"></i>AI Analysis</h6>
+                  <p class="small">Our AI will analyze and score each resume against the job requirements</p>
+                </div>
+                <div class="col-md-6">
+                  <h6><i class="bi bi-4-circle me-2"></i>Get Results</h6>
+                  <p class="small">View detailed reports with match scores and recommendations</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', helpModal);
+    const modal = new bootstrap.Modal(document.getElementById('helpModal'));
+    modal.show();
+    
+    document.getElementById('helpModal').addEventListener('hidden.bs.modal', function() {
+      this.remove();
+    });
+  }
+  
+  // Initialize everything
+  document.addEventListener('DOMContentLoaded', function() {
+    validateForm();
+    addPulseAnimation();
+    
+    // Add event listeners
+    document.getElementById('jdFile').addEventListener('change', validateForm);
+    document.getElementById('resumeFiles').addEventListener('change', validateForm);
+    
+    // Enhanced form submission
+    document.getElementById('evaluationForm').addEventListener('submit', function() {
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = submitBtn.querySelector('.btn-text');
+      const btnLoader = submitBtn.querySelector('.btn-loader');
+      
+      btnText.style.display = 'none';
+      btnLoader.style.display = 'flex';
+      submitBtn.disabled = true;
+      
+      // Update process steps
+      const steps = document.querySelectorAll('.process-step');
+      steps.forEach((step, index) => {
+        setTimeout(() => {
+          step.classList.add('active');
+        }, index * 1000);
+      });
+    });
+  });
+</script>
+  <!-- Floating Action Button -->
+  <div class="fab-container">
+    <button class="fab" onclick="scrollToTop()" id="scrollToTop" style="display: none;">
+      <i class="bi bi-arrow-up"></i>
+    </button>
+  </div>
+  
+  <style>
+    .fab-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 1000;
+    }
+    
+    .fab {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--primary-gradient);
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
+    }
+  </style>
+  
+  <script>
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    window.addEventListener('scroll', function() {
+      const scrollBtn = document.getElementById('scrollToTop');
+      if (window.scrollY > 300) {
+        scrollBtn.style.display = 'flex';
+      } else {
+        scrollBtn.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
