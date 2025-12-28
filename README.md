@@ -1,8 +1,10 @@
 # Resume Evaluator - AI-Powered Resume Matching System
 
+
 ## 🚀 Overview
 
 **Resume Evaluator** is an advanced AI-powered resume matching and evaluation system that automates the candidate screening process. Built with Flask and integrated with Azure AI services, it provides intelligent resume analysis, scoring, and hiring recommendations.
+
 
 ## ✨ Key Features
 
@@ -13,6 +15,7 @@
 - 📈 **Professional Reports** - Branded PDF reports with detailed analysis
 - 🔒 **Secure Processing** - Azure cloud integration with encrypted storage
 - 📱 **Responsive UI** - Modern, mobile-friendly interface
+
 
 ## 🏗️ Architecture
 
@@ -25,6 +28,7 @@
 │ • Results View  │    │ • Report Gen.    │    │ • Blob Storage  │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
 ```
+
 
 ## 📁 Project Structure
 
@@ -46,6 +50,7 @@ resume_matcher/
     └── matcher.py          # AI evaluation logic
 ```
 
+
 ## 🛠️ Technology Stack
 
 ### Backend
@@ -65,6 +70,7 @@ resume_matcher/
 - **pandas** - Data manipulation and analysis
 - **python-docx** - Word document processing
 - **xhtml2pdf** - PDF report generation
+
 
 ## 🚀 Quick Start
 
@@ -364,5 +370,6 @@ This software is proprietary and confidential. Unauthorized copying, distributio
 ---
 
 **Built with ❤️ by Shreyas**
-*Transforming recruitment through AI-powered intelligence*" #   R e s u m e - E v a l u a t o r "    
+*Transforming recruitment through AI-powered intelligence*" #   R e s u m e - E v a l u a t o r "   
+ 
  
